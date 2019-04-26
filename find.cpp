@@ -36,7 +36,7 @@ private:
 struct filter_size : filter {
     filter_size(char *value)
             : filter(), status(value[0]), num(atoi(value + 1)) {
-        if (status != '-' || status != '=' || status != '+') {
+        if (status != '-' && status != '=' && status != '+') {
             std::cout << "Invalid command for -size: '" << status << "'\n";
             exit(1);
         }
@@ -124,7 +124,7 @@ void init(ssize_t count, char **args) {
                 filters.push_back(static_cast<filter *>(new filter_size(value)));
             } else if (strcmp(s_key, "-nlinks") == 0) {
                 filters.push_back(static_cast<filter *>(new filter_link(value)));
-            } else if (strcmp(s_key, "-check") == 0) {
+            } else if (strcmp(s_key, "-exec") == 0) {
                 filters.push_back(static_cast<filter *>(new filter_exec(value)));
             } else {
                 printf("can't find command: '%s'\n", s_key);
